@@ -12,6 +12,7 @@ import com.example.board_java.br.com.service.CardQueryService;
 import com.example.board_java.br.com.service.CardService;
 import lombok.AllArgsConstructor;
 
+import javax.smartcardio.Card;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -140,17 +141,48 @@ public class BoardMenu {
         }
     }
 
-    private void blockCard() {
-
+    private void cancelCard() throws SQLException {
+        System.out.println("informe o id do card que ira ser cancelado");
+        var cancelColumn = entity.getCancelColumn();
+        var cardId = scanner.nextLong();
+        var boardColumnsInfo = entity.getBoardColumns().stream().map(bc ->
+                new BoardColumnInfoDTO(bc.getId(), bc.getOrder(), bc.getKind())).toList();
+        try (var connection = ConnectionConfig.getConnection()){
+            new CardService(connection).cancel(cardId, cancelColumn.getId(), boardColumnsInfo);
+        } catch (RuntimeException e){
+            System.out.println(e.getMessage());
+        }
     }
 
-    private void unblockCard() {
-
+    private void blockCard() throws SQLException {
+        System.out.println("informe o id do card que sera bloqueado");
+        var cardId = scanner.nextLong();
+        System.out.println("informe o motivo do bloqueio do card");
+        var reason = scanner.next();
+        var boardColumnsInfo = entity.getBoardColumns().stream().map(bc ->
+                new BoardColumnInfoDTO(bc.getId(), bc.getOrder(), bc.getKind())).toList();
+        try (var connection = ConnectionConfig.getConnection()){
+            new CardService(connection).block(cardId, reason, boardColumnsInfo);
+        } catch (RuntimeException e){
+            System.out.println(e.getMessage());
+        }
     }
 
-    private void cancelCard() {
-
+    private void unblockCard() throws SQLException {
+        System.out.println("informe o id do card que sera desbloqueado");
+        var cardId = scanner.nextLong();
+        System.out.println("informe o motivo do desbloqueio do card");
+        var reason = scanner.next();
+        var boardColumnsInfo = entity.getBoardColumns().stream().map(bc ->
+                new BoardColumnInfoDTO(bc.getId(), bc.getOrder(), bc.getKind())).toList();
+        try (var connection = ConnectionConfig.getConnection()){
+            new CardService(connection).block(cardId, reason, boardColumnsInfo);
+        } catch (RuntimeException e){
+            System.out.println(e.getMessage());
+        }
     }
+
+
 
 
 
