@@ -1,6 +1,7 @@
 package com.example.board_java.br.com.persistance.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -12,5 +13,13 @@ public class BoardEntity {
     private String name;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<BoardColumnEntity> boardColumns = new ArrayList<>();
+
+    public BoardColumnEntity getInitialColumn(){
+        return boardColumns.stream()
+                .filter(bc -> bc.getKind().equals(BoardColumnKindEnum.INITIAL))
+                .findFirst().orElseThrow();
+    }
+
 }
