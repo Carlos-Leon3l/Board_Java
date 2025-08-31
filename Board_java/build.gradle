@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Board_java'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Liquibase - Ferramenta para controle de versão do banco de dados
+    implementation("org.liquibase:liquibase-core:4.30.0")
+
+    // MySQL Connector - Conector JDBC para o banco de dados MySQL
+    // ATENÇÃO: O nome do artefato mudou para 'mysql-connector-j'
+    implementation("com.mysql:mysql-connector-j:8.4.0")
+
+    // Lombok - Para reduzir código boilerplate (getters, setters, etc.)
+    compileOnly("org.projectlombok:lombok:1.18.36")
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
