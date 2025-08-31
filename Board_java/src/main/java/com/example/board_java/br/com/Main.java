@@ -1,5 +1,6 @@
 package com.example.board_java.br.com;
 
+import com.example.board_java.br.com.UI.MainMenu;
 import com.example.board_java.br.com.persistance.Config.ConnectionConfig;
 import com.example.board_java.br.com.persistance.migration.MigrationStrategy;
 
@@ -11,5 +12,6 @@ public class Main {
             new MigrationStrategy(connection).executeMigration();
 
         }
+        new MainMenu().execute();
     }
 }

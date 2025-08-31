@@ -1,0 +1,38 @@
+conexao feitacom.mysql.cj.jdbc.ConnectionImpl@609cd4d8
+ago. 31, 2025 4:20:30 PM liquibase.changelog
+INFORMAÇÕES: Reading resource: db/changelog/migrations/db.changelog-202508301955.sql
+ago. 31, 2025 4:20:30 PM liquibase.changelog
+INFORMAÇÕES: Reading resource: db/changelog/migrations/db.changelog-202508301956.sql
+ago. 31, 2025 4:20:30 PM liquibase.changelog
+INFORMAÇÕES: Reading resource: db/changelog/migrations/db.changelog-202508302056.sql
+ago. 31, 2025 4:20:30 PM liquibase.changelog
+INFORMAÇÕES: Reading resource: db/changelog/migrations/db.changelog-202508302100.sql
+ago. 31, 2025 4:20:30 PM liquibase.changelog
+INFORMAÇÕES: Reading from schema_boards.databasechangelog
+Database is up to date, no changesets to execute
+ago. 31, 2025 4:20:30 PM liquibase.changelog
+INFORMAÇÕES: Reading from schema_boards.databasechangelog
+
+UPDATE SUMMARY
+Run:                          0
+Previously run:               4
+Filtered out:                 0
+-------------------------------
+Total change sets:            4
+
+ago. 31, 2025 4:20:30 PM liquibase.util
+INFORMAÇÕES: UPDATE SUMMARY
+ago. 31, 2025 4:20:30 PM liquibase.util
+INFORMAÇÕES: Run:                          0
+ago. 31, 2025 4:20:30 PM liquibase.util
+INFORMAÇÕES: Previously run:               4
+ago. 31, 2025 4:20:30 PM liquibase.util
+INFORMAÇÕES: Filtered out:                 0
+ago. 31, 2025 4:20:30 PM liquibase.util
+INFORMAÇÕES: -------------------------------
+ago. 31, 2025 4:20:30 PM liquibase.util
+INFORMAÇÕES: Total change sets:            4
+ago. 31, 2025 4:20:30 PM liquibase.util
+INFORMAÇÕES: Update summary generated
+ago. 31, 2025 4:20:30 PM liquibase.command
+INFORMAÇÕES: Command execution complete

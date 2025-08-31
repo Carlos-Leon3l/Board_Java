@@ -2,10 +2,8 @@ package com.example.board_java.br.com.persistance.migration;
 
 import static com.example.board_java.br.com.persistance.Config.ConnectionConfig.getConnection;
 
-import com.example.board_java.br.com.persistance.Config.ConnectionConfig;
 import liquibase.Liquibase;
 import liquibase.database.jvm.JdbcConnection;
-import liquibase.exception.DatabaseException;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import lombok.AllArgsConstructor;
@@ -31,8 +29,10 @@ public class MigrationStrategy {
                     var jdbcConnection = new JdbcConnection(connection);
             ) {
                 var liquibase = new Liquibase("db/changelog/db.changelog-master.yml", new ClassLoaderResourceAccessor(), jdbcConnection);
+                liquibase.update();
             } catch (SQLException | LiquibaseException e) {
                 e.printStackTrace();
+                System.setErr(originalError);
             }
         } catch (IOException ex) {
             ex.printStackTrace();

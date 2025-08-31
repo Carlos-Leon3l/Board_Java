@@ -51,7 +51,7 @@ public class MainMenu  {
         columns.add(initialColumn);
 
         for (int i = 0; i < addiotionalColumns; i++) {
-            System.out.println("Informe o nome da coluna inicial do board");
+            System.out.printf("Informe o nome da coluna pendente %s do board", i);
             var pendingColumnName = scanner.next();
             var pendingColumn = createColumn(initialColumnName, BoardColumnKindEnum.PENDING, i+1);
             columns.add(initialColumn);
@@ -63,7 +63,7 @@ public class MainMenu  {
 
         System.out.println("Informe o nome da coluna de cancelamento do board");
         var cancelColumnName = scanner.next();
-        var cancelColumn = createColumn(initialColumnName, BoardColumnKindEnum.CANCEL, addiotionalColumns+1);
+        var cancelColumn = createColumn(initialColumnName, BoardColumnKindEnum.CANCEL, addiotionalColumns + 2);
         columns.add(initialColumn);
 
         entity.setBoardColumns(columns);
@@ -77,10 +77,10 @@ public class MainMenu  {
         System.out.println("informe o id do board que quer selecionar");
         var id = scanner.nextLong();
         try(var connection = ConnectionConfig.getConnection()) {
-            var queryservice = new BoardQueryService(connection);
-            var optional = queryservice.findbBID(id);
+            var queryService = new BoardQueryService(connection);
+            var optional = queryService.findbBID(id);
             optional.ifPresentOrElse(
-                    b ->  new BoardMenu(b).execute(), () -> System.out.println("não foi encontrado o id"));
+                    b ->  new BoardMenu(b).execute(), () -> System.out.printf("não foi encontrado o id %s", id));
         }
     }
 
