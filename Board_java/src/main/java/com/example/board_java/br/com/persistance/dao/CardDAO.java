@@ -33,12 +33,12 @@ public class CardDAO {
         return entity;
     }
 
-    public void moveToColumn(final Long cardId, final Long columnId) throws SQLException{
-        var sql = "UPDATE CARDS SET () WHERE board_column_id = ? where id = ?";
+    public void moveToColumn(final Long columnId, final Long cardId) throws SQLException{
+        var sql = "UPDATE CARDS SET board_column_id = ? WHERE id = ?";
         try(var statement = connection.prepareStatement(sql)) {
             var i = 1;
             statement.setLong( i++, columnId);
-            statement.setLong(i ++ ,cardId);
+            statement.setLong(i ,cardId);
             statement.executeUpdate();
         }
     }
@@ -53,15 +53,15 @@ public class CardDAO {
                     c.board_column_id,
                     bc.name,
                     (SELECT COUNT(sub_b.id)
-                            FROM sub_b_.id
-                            WHERE sub_b.id = c.id) blocks_amount
+                            FROM BLOCKS sub_b
+                            WHERE sub_b.card_id = c.id) blocks_amount
                 FROM CARDS c
                 LEFT JOIN BLOCKS b
                     ON c.id = b.card_id
                     AND b.unblock_at IS NULL
                     INNER JOIN BOARDS_COLUMNS bc
                     ON bc.id = c.board_column_id
-                WHERE id = ?
+                WHERE c.id = ?
                 """;
         try( var statement = connection.prepareStatement(sql)) {
             statement.setLong(1,id);
@@ -69,13 +69,13 @@ public class CardDAO {
             var resultSet = statement.getResultSet();
             if(resultSet.next()) {
                 var dto = new CardDetails(
-                        resultSet.getLong("d.id"),
+                        resultSet.getLong("c.id"),
                         resultSet.getString("c.title"),
                         resultSet.getString("c.description"),
                         Objects.nonNull(resultSet.getString("b.block_reason")),
                         OffSetDateTimeConverter.toOffSetDateTime(resultSet.getTimestamp("b.block_at")),
                         resultSet.getString("b.block_reason"),
-                        resultSet.getInt("b.blocks_amount"),
+                        resultSet.getInt("blocks_amount"),
                         resultSet.getLong("c.board_column_id"),
                         resultSet.getString("bc.name")
                 );

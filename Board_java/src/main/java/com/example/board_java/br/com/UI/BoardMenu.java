@@ -176,7 +176,7 @@ public class BoardMenu {
         var boardColumnsInfo = entity.getBoardColumns().stream().map(bc ->
                 new BoardColumnInfoDTO(bc.getId(), bc.getOrder(), bc.getKind())).toList();
         try (var connection = ConnectionConfig.getConnection()){
-            new CardService(connection).block(cardId, reason, boardColumnsInfo);
+            new CardService(connection).unblock(cardId, reason);
         } catch (RuntimeException e){
             System.out.println(e.getMessage());
         }

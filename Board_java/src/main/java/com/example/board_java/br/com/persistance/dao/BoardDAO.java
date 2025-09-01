@@ -33,8 +33,9 @@ public class BoardDAO {
     }
 
     public Optional<BoardEntity> findById(final Long id) throws SQLException {
-        var sql = "SELECT id FROM BOARDS WHERE id = ?";
+        var sql = "SELECT id, name FROM BOARDS WHERE id = ?";
         try(var statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, id);
             statement.executeQuery();
             var resultSet = statement.getResultSet();
             if(resultSet.next()){
@@ -48,7 +49,7 @@ public class BoardDAO {
     }
 
     public boolean exists(final Long id) throws SQLException {
-        var sql = "SELECT 1 FROM BOARDS WHERE id = ?";
+        var sql = "SELECT FROM BOARDS WHERE id = ?";
         try(var statement = connection.prepareStatement(sql)) {
             statement.executeQuery();
             return statement.getResultSet().next();
